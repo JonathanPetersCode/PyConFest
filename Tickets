@@ -1,0 +1,32 @@
+import sys
+
+SERVICE_CHARGE = 21
+TICKET_PRICE = 34
+tickets_remaining = 718
+
+def calculate_price(num_tickets):
+    return (num_tickets * TICKET_PRICE) + SERVICE_CHARGE
+
+while tickets_remaining >= 1:
+    name = input("Hello, please enter your name:\n")
+    print("Hey {} ! Welcome to the PyCon Marketplace! \n".format(name))
+    print("There are {} tickets remaining...".format(tickets_remaining))
+    num_tickets = input("How many tickets would you like {}? : \n".format(name))
+    try:
+        num_tickets = int(num_tickets)
+        tickets_left = tickets_remaining - num_tickets
+        if num_tickets > tickets_remaining:
+            raise ValueError("Error Code: 462:")
+    except ValueError as err:
+        print("{} An error has occurred, please enter a suitable amount".format(err))
+    else:
+        amount_due = calculate_price(num_tickets)
+        print("\nYour order is for: {} : PyCon Fest Tickets." "\nService Charge : ${} " 
+              "\nYour total will be : ${} ".format(num_tickets, SERVICE_CHARGE, amount_due))
+        if num_tickets == tickets_remaining:
+            print("**[Attention]** - We noticed that you are attempting to order all of the remaining tickets "
+                  "for this very exclusive, once in a lifetime event...\n" "\nYou'd better not be a scalper!! "
+                  "Just kidding, we don't care, proceed...")
+        should_we_proceed = input("\nWould you like to confirm your order? Please enter Y/N: ")
+        if should_we_proceed.lower() == "y":
+            sys.exit("Your order has been placed! Thank you for shopping at the PyCon Market!")
